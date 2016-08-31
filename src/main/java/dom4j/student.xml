@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+<students>
+	<student>
+		<code>1</code>
+		<name>高寿阳</name>
+		<language>.net平台</language>
+		<age>10</age>
+	</student>
+	<student>
+		<code>2</code>
+		<name>李宝振</name>
+		<language>.net平台</language>
+		<age>5</age>
+	 </student>
+	 <student>
+		<code>3</code>
+		<name>黄文涛</name>
+		<language>.net平台</language>
+		<age>5</age>
+	 </student>
+	 <student>
+		<code>4</code>
+		<name>李国刚</name>
+		<language>.net平台,PHP</language>
+		<age>7</age>
+	 </student>
+	 <student>
+		<code>5</code>
+		<name>卓斌</name>
+		<language>.net平台</language>
+		<age>7</age>
+	 </student>
+	 <student>
+		<code>6</code>
+		<name>薛凤震</name>
+		<language>Java</language>
+		<age>7</age>
+	 </student>
+	 <student>
+		<code>7</code>
+		<name>车昌勇</name>
+		<language>Java,Android</language>
+		<age>7</age>
+	 </student>
+</students>

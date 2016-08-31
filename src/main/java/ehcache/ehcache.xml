@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache name="ColorCache">
+	<defaultCache 
+		maxElementsInMemory="2" 
+		eternal="false"
+		timeToIdleSeconds="1" 
+		timeToLiveSeconds="1" 
+		overflowToDisk="false"
+		memoryStoreEvictionPolicy="LRU" />
+		
+	<cache name="sample" 
+		maxElementsInMemory="5" 
+		eternal="false"
+		overflowToDisk="false" 
+		timeToIdleSeconds="1" 
+		timeToLiveSeconds="1"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+</ehcache>

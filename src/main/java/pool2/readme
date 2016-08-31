@@ -1,0 +1,9 @@
+
+1.maven配置
+<!-- apache对象池 - 开始 -->
+<dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-pool2</artifactId>
+	<version>2.4.2</version>
+</dependency>
+<!-- apache对象池 - 结束 -->

@@ -1,0 +1,85 @@
+##################### 日志级别   ########################
+TRACE < DEBUG < INFO < WARN < ERROR < FATAL
+TRACE
+TheTRACELevel designates finer-grained informational events than the DEBUG.Since:1.2.12
+static Level DEBUG
+DEBUG Level指出细粒度信息事件对调试应用程序是非常有帮助的。
+static Level INFO
+INFO level表明 消息在粗粒度级别上突出强调应用程序的运行过程。
+static Level WARN
+WARN level表明会出现潜在错误的情形。
+static Level ERROR
+ERROR level指出虽然发生错误事件，但仍然不影响系统的继续运行。
+static Level FATAL
+FATAL level指出每个严重的错误事件将会导致应用程序的退出。
+static Level ALL
+ALL Level是最低等级的，用于打开所有日志记录。
+static Level OFF
+OFF Level是最高等级的，用于关闭所有日志记录。
+
+
+##################### web.xml中配置   ########################
+<!-- log4j2-begin -->
+<context-param>
+    <param-name>isLog4jAutoInitializationDisabled</param-name>
+    <param-value>false</param-value>
+</context-param>
+<!-- 默认就会找这个文件，不需要额外配置引用 -->
+<context-param>  
+    <param-name>log4jConfiguration</param-name>  
+    <param-value>classpath:/log4j2.xml</param-value>  
+</context-param>
+<listener>
+	<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+</listener>
+<filter>
+	<filter-name>log4jServletFilter</filter-name>
+	<filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>log4jServletFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	<dispatcher>REQUEST</dispatcher>
+	<dispatcher>FORWARD</dispatcher>
+	<dispatcher>INCLUDE</dispatcher>
+	<dispatcher>DEBUG</dispatcher>
+	<dispatcher>ASYNC</dispatcher>
+</filter-mapping>
+<!-- log4j2-end -->
+web2.5的工程需要配置，web3.0以及以上不需要配置监听
+Servlet 3.0 w/ disabled auto-initialization only; not supported in 2.5
+##################### mvn配置  ########################
+
+<!-- log4j2 开始 -->
+<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-api</artifactId>
+	<version>${log4j2.version}</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-core</artifactId>
+	<version>${log4j2.version}</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-web</artifactId>
+	<version>${log4j2.version}</version>
+</dependency>
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-api</artifactId>
+	<version>1.7.12</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j-slf4j-impl</artifactId>
+	<version>${log4j2.version}</version>
+	<exclusions>
+		<exclusion>
+			<artifactId>slf4j-api</artifactId>
+			<groupId>org.slf4j</groupId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- log4j2 结束 -->

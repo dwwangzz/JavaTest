@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- 自定义属性 -->
+	<Properties>
+		<Property name="log_pattern">[%p] [%d{yyyy-MM-dd HH:mm:ss.SSS z}] [%c] - %m%n</Property>
+		<Property name="log_pattern2">[%p] [%d{yyyy-MM-dd HH:mm:ss.SSS z}] [%c] [%-14.14c{1}] - %m%n</Property>
+		<property name="log_home">D:/logs</property>
+		<property name="file_name">logName</property>
+		<property name="trace_File">opt-trace</property>
+		<property name="debug_File">opt-debug</property>
+		<property name="info_File">opt-info</property>
+		<property name="warn_File">opt-warn</property>
+		<property name="error_File">opt-error</property>
+		<property name="fatal_File">opt-fatal</property>
+		<property name="rolling_file_name">${log_home}/app-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="rolling_trace_File">${log_home}/trace-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="rolling_debug_File">${log_home}/debug-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="rolling_info_File">${log_home}/info-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="rolling_warn_File">${log_home}/warn-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="rolling_error_File">${log_home}/error-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="rolling_fatal_File">${log_home}/fatal-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="every_file_size">20M</property><!-- 日志切割的最小单位 -->
+		<property name="output_log_level">debug</property><!-- 日志输出级别 -->
+	</Properties>
+
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<Console name="Console2" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Filters>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+              </Filters>
+		</Console>
+		
+		<!-- 输出trace类型日志的文件 -->
+		<RollingFile name="trace_File" fileName="${log_home}/${trace_File}.log" filePattern="${rolling_trace_File}">
+			<PatternLayout pattern="${log_pattern2}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" />
+				<SizeBasedTriggeringPolicy size="${every_file_size}" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+			<Filters>
+                <ThresholdFilter level="debug" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+              </Filters>
+		</RollingFile>
+		
+		<!-- 输出debug类型日志的文件 -->
+		<RollingFile name="debug_File" fileName="${log_home}/${debug_File}.log" filePattern="${rolling_debug_File}">
+			<PatternLayout pattern="${log_pattern2}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" />
+				<SizeBasedTriggeringPolicy size="${every_file_size}" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+			<Filters>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+              </Filters>
+		</RollingFile>
+		
+		<!-- 输出info类型日志的文件 -->
+		<RollingFile name="info_File" fileName="${log_home}/${info_File}.log" filePattern="${rolling_info_File}">
+			<PatternLayout pattern="${log_pattern2}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24"/>
+				<SizeBasedTriggeringPolicy size="${every_file_size}" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+			<Filters>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+              </Filters>
+		</RollingFile>
+		
+		<!-- 输出warn类型日志的文件 -->
+		<RollingFile name="warn_File" fileName="${log_home}/${warn_File}.log" filePattern="${rolling_warn_File}">
+			<PatternLayout pattern="${log_pattern2}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24"/>
+				<SizeBasedTriggeringPolicy size="${every_file_size}" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+			<Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+              </Filters>
+		</RollingFile>
+		
+		<!-- 输出error级别和error以上级别的日志文件 -->
+		<RollingFile name="error_File" fileName="${log_home}/${error_File}.log" filePattern="${rolling_error_File}">
+			<PatternLayout pattern="${log_pattern2}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24"/>
+				<SizeBasedTriggeringPolicy size="${every_file_size}" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+			<Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+              </Filters>
+		</RollingFile>
+		
+	</appenders>
+	<loggers>
+	
+		<logger name="log4j2.Demo" level="trace" additivity="false">
+			<appender-ref ref="Console2" />
+		</logger>
+		
+		<root level="${output_log_level}">
+			<appender-ref ref="Console" />
+			<appender-ref ref="debug_File" />
+			<appender-ref ref="info_File" />
+			<appender-ref ref="warn_File" />
+			<appender-ref ref="error_File" />
+		</root>
+		
+	</loggers>
+</configuration>

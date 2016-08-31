@@ -1,0 +1,13 @@
+<!-- 序列化相关jar - 开始 -->
+<dependency>
+	<groupId>com.esotericsoftware.kryo</groupId>
+	<artifactId>kryo</artifactId>
+	<version>2.24.0</version>
+</dependency>
+<!-- 序列化相关jar - 结束 -->
+<!-- 全文检索 -->
+<dependency>
+    <groupId>org.apache.solr</groupId>
+    <artifactId>solr-solrj</artifactId>
+    <version>5.2.0</version>
+</dependency>

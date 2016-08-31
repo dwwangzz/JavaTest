@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status="OFF"，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF -->
+<!-- monitorInterval="1800" 指log4j2每隔1800秒（半小时），自动监控该配置文件是否有变化，如果变化，则自动根据文件内容重新配置（很不错的功能！） -->
+<Configuration status="WARN" monitorInterval="1800">
+
+	<!-- 定义一些属性（可以根据需要自己随便添加），主要是为了后面引用起来方便  用${log_home}取出 -->
+	<Properties>
+		<Property name="pattern">[%p] [%d{yyyy-MM-dd HH:mm:ss.SSS z}] [%c] - %m%n</Property>
+		<Property name="pattern2">[%p] [%d{yyyy-MM-dd HH:mm:ss.SSS z}] [%c] [%-14.14c{1}] - %m%n</Property>
+		<Property name="pattern3">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+		<property name="log_pattern">%d{yyyy-MM-dd HH:mm:ss.SSS z} %-5level %class{36} %L %M - %msg%xEx%n</property>
+		<property name="log_pattern2">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</property>
+		<property name="log_home">D:/logs</property>
+		<property name="file_name">logName</property>
+		<property name="file_path">${log_home}/logFile</property><!-- 注：这里属性之间也可以相互引用 -->
+		<property name="rolling_file_name">backFileName-%d{yyyy-MM-dd}-%i.log.gz</property>
+		<property name="every_file_size">10M</property><!-- 日志切割的最小单位 -->
+		<property name="output_log_level">debug</property><!-- 日志输出级别 -->
+	</Properties>
+	
+	<Appenders>
+		<!--这个输出控制台的配置-->
+		<Console name="Console" target="SYSTEM_OUT">
+		    <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--输出日志的格式-->
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		
+		<!-- 
+			RollingRandomAccessFile标签 和 RollingFile标签都表示以文件的形式输出
+			filePattern：当文件超过（TimeBasedTriggeringPolicy）配置的时间或大小超过（SizeBasedTriggeringPolicy）配置的大小的时候，重新命名的规则
+		 -->
+		<RollingRandomAccessFile name="running-log" fileName="${log_home}/${file_name}-copy.log" filePattern="${log_home}/${rolling_file_name}">
+			<PatternLayout pattern="${log_pattern2}" />
+			<Policies>
+				<!-- 24小时重新分配一个日志文件 -->
+				<TimeBasedTriggeringPolicy interval="24" modulate="true"/>
+				<!--表示单个文件最大多少容量 -->
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<!-- 表示压缩包，最多保留20个 -->
+			<DefaultRolloverStrategy max="20" />
+			<!-- 
+				重要的是，如果有多个ThresholdFilter，那么Filters是必须的，同时在Filters中，首先要过滤不符合的日志级别，把不需要的首先DENY掉，然后再ACCEPT需要的日志级别，这个次序不能搞颠倒。
+				下面这个例子是：显示error级别之外的信息
+			 -->
+			<Filters>
+                <!-- 禁止error以上级别的日志输出 -->
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!-- 输出trace级别以及trace以上的日志 -->
+                <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+              </Filters>
+		</RollingRandomAccessFile>
+		
+		<RollingFile name="File" fileName="${log_home}${file_name}.log"
+			filePattern="D:/logs/btat-%d{yyyy-MM}-%i.log.gz">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="7" />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		<!-- 
+			1.定义了一个新logger，它的级别是trace ，使用文件方式来记录日志，additivity="true" 这里注意一下，
+				因为下面还有一个root logger，任何其它的logger最终都相当于继承自root logger，所以“log4j2.Demo”这个logger中，
+				如果记录了error及以上级别的日志，除了文件里会记录外，root logger也会生效，即：控制台也会输出一次。如果把additivity="true" 中的true，改成false，
+				root logger就不会再起作用，即只会记录在文件里，控制台无输出。
+			2.默认这个logger的name就是当前类或者包的全称，即 log4j2.Demo，这样就跟配置对应上了，所以刚才配置中的 name="log4j2.Demo"的logger，相当于只对Demo这一个类起作用
+		-->
+		<logger name="log4j2.Demo" level="trace" additivity="false">
+			<AppenderRef ref="running-log"/>
+		</logger>
+		
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="File" />
+		</Root>
+		
+	</Loggers>
+</Configuration>

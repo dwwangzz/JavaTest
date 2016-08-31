@@ -1,0 +1,6 @@
+<!-- redis消息发布与订阅 -->
+<dependency>
+	<groupId>redis.clients</groupId>
+	<artifactId>jedis</artifactId>
+	<version>2.7.3</version>
+</dependency>
