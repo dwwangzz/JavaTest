@@ -1,6 +1,7 @@
-package reflectDemo;
+package reflect;
 
 import org.junit.Test;
+import reflect.entity.Person;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -23,12 +24,13 @@ public class ReflectDemo {
 
 	
 	/** 
-	 * 加载类 - 获得类字节码的几种方式
+	 * 加载类 - 获得类字节码的几种方式（获取类类型的方法）
 	 */
-	public static void getPersionClass() throws ClassNotFoundException {
+	@Test
+	public void getPersionClass() throws ClassNotFoundException {
 		//获得类字节码的几种方式
 		//1.
-		Class clazz = Class.forName("reflectDemo.Person");
+		Class clazz = Class.forName("reflect.entity.Person");
 		System.out.println(clazz);
 		//2.
 		Class p = new Person().getClass();
@@ -96,7 +98,7 @@ public class ReflectDemo {
 	@Test
 	public void test6() throws Exception{
 		//创建对象的另外一种途径
-		Class clazz = Class.forName("reflectDemo.Person");
+		Class clazz = Class.forName("reflect.entity.Person");
 		Person p = (Person) clazz.newInstance();
 		System.out.println(p);
 		System.out.println(p.str);

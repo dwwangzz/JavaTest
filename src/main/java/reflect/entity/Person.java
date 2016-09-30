@@ -1,8 +1,8 @@
-package reflectDemo;
+package reflect.entity;
 
 import java.util.List;
 
-public class Person {
+public class Person implements IPerson {
 	
 	public String str = "I am str";
 	
@@ -35,10 +35,16 @@ public class Person {
 		this.list = list;
 		System.out.println("list");
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
+	@Override
+	public void eat() {
+		System.out.println("person eat 了！");
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
