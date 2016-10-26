@@ -81,4 +81,14 @@ public class patternTest {
         String[] split = str.split(",");
     }
 
+    @Test
+    public void test2() {
+        //用正则删除json字符串中的某个字段
+        String str = "{\"buyoutId\":null,\"arrivalDate\":\"2016-10-28 16:00:00\",\"combineDetailList\":null," +
+                "\"virtualQuantity\":-1}";
+        str = str.replaceAll("\"arrivalDate\".+?,", "");
+        System.out.println(str);
+    }
+
+
 }
