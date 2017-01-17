@@ -6,10 +6,15 @@ import java.util.regex.Pattern;
 public class Test {
 
     public static void main(String[] args) throws Exception {
-        String str = "18653151533,显示签收未收到,售后客服注意,售中客服注意，确认换货/补发订单";
-
-        System.out.println(getTelnum(str));
+        String str = "第2行 任务类型:'订单组注意1'不存在，;\n" +
+                "第2行 任务类型:'确认信息2'不存在，;\n" +
+                "第3行 任务类型:'订单组注意3'不存在，;\n" +
+                "第3行 任务类型:'追件3'不存在，;";
+        str = str.replaceAll("[,，];",";");
+        System.out.println(str);
     }
+
+
 
     public static String getTelnum(String sParam) {
         if (sParam.length() <= 0)
