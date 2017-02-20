@@ -1,35 +1,29 @@
 package Test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import domain.Demo;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Test {
 
     public static void main(String[] args) throws Exception {
-        String str = "第2行 任务类型:'订单组注意1'不存在，;\n" +
-                "第2行 任务类型:'确认信息2'不存在，;\n" +
-                "第3行 任务类型:'订单组注意3'不存在，;\n" +
-                "第3行 任务类型:'追件3'不存在，;";
-        str = str.replaceAll("[,，];",";");
-        System.out.println(str);
-    }
 
-
-
-    public static String getTelnum(String sParam) {
-        if (sParam.length() <= 0)
-            return "";
-        Pattern pattern = Pattern.compile("(\\+?86)?1\\d{10}$*");
-        Matcher matcher = pattern.matcher(sParam);
-        StringBuffer bf = new StringBuffer();
-        while (matcher.find()) {
-            bf.append(matcher.group()).append(",");
-        }
-        int len = bf.length();
-        if (len > 0) {
-            bf.deleteCharAt(len - 1);
-        }
-        return bf.toString();
+        Demo demo = new Demo();
+        List<String> list = new ArrayList<>();
+        list.add("yz_hstyleqjd");
+        list.add("tb_prospecsqjd");
+        list.add("bb_soulineqjd");
+        list.add("bb_nibbunsqjd");
+        list.add("sb_honeypigqjd");
+        list.add("bb_gyqjd");
+        list.add("ccj_hstyleqjd");
+        list.add("wd_prospecsjb");
+        list.add("jd_soulinfsqjd");
+        demo.setCodes(list);
+        Collections.sort(list);
+        System.out.println(demo.toString());
     }
 
 }
