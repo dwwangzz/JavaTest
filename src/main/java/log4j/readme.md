@@ -1,5 +1,5 @@
 ### Rules reminder:
-# TRACE < DEBUG < INFO < WARN < ERROR < FATAL
+#### TRACE < DEBUG < INFO < WARN < ERROR < FATAL
 
 ### 设置
 `log4j.rootLogger = debug,stdout,D,E`
