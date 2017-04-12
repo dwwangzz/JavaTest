@@ -87,3 +87,36 @@ log4j.logger.org.apache.catalina.startup.TldConfig=info
 log4j.logger.chb.test=debug
 ```
 
+### Log4j 输出格式转换字符说明 
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 
+```
+c  category的名称，可使用｛n}限制输出的精度。例如：logger名为"a.b.c"，%c{2}将输出"b.c"。 
+
+C  产生log事件的java完全限定类名。可使用｛n}限制输出的精度。例如：“org.apache.xyz.SomeClass”,%C{2}将输出“SomeClass”。 
+
+d  时间和日期的输出格式，例如：%d{yyyy MM dd HH:mm:ss,SS}，可不带后面的日期格式字符。 
+
+F  产生log事件的java源文件名，带“.java”后缀及包名称。 
+
+l  log发生位置的详细描述，包括方法名、文件名及行号。 
+
+L  log发生在源文件中的位置。(行号)
+
+m  log事件的消息内容。 
+
+M  log发生时所在的方法名称。 
+
+n  根据所运行的平台输出相应的行分隔字符。 
+
+p  log事件的级别。 
+
+r  自程序运行至log事件产生所经过的时间。 
+
+t  产生log的线程名称。 
+```
+你的问题可以有下面的格式串输出： 
+```
+log4j.appender.stdout.layout.ConversionPattern=%d %-5p %l - %m%n 
+%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+%-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ]  %m%n
+```
