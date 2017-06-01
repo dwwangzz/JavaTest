@@ -233,6 +233,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- guava 注：20.0以上需要jdk8以上的支持-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>
