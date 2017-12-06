@@ -49,7 +49,7 @@ public class Eleme {
         double payPrice = s.nextDouble();
         s.nextLine();
         boolean flag = true;
-        List<Double> priceList = new ArrayList<>();
+        List<Double> priceList = new ArrayList<Double>();
         do {
             System.out.println("请输入一个实际金额(结束请输入;)：");
             String re = s.nextLine().trim();
