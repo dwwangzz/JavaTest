@@ -281,28 +281,13 @@ public class HttpUtil {
     
     public static void main(String[] args) {
         try {
-//            HttpResponseInfo info = HttpDoGet("http://data.glodon.com/gcj/api/gcwuserno.do?date=2015-10-27");
-            
-            Map<String, String> paramsMap = new HashMap<String, String>();
-            paramsMap.put("date", "2015-10-27");
-//            HttpResponseInfo info = HttpDoGet("http://data.glodon.com/gcj/api/gcwuserno.do",paramsMap);
-            
-            Map<String, Object> paramMap = new HashMap<String, Object>();
-            paramMap.put("mobile", "15508613139");
-            paramMap.put("userName", "123 光放大123");
-            paramMap.put("code", "1245");
-            
-            paramMap.put("file1", new File("E:/Sample Pictures/15.jpg"));
-            paramMap.put("file2", new File("E:/Sample Pictures/90u58PICzIG.jpg"));
-            paramMap.put("file3", new File("E:/Sample Pictures/实景.png"));
-//            paramMap.put("file", new File("E:/工具类分配.xlsx"));
+            String url = "http://202.107.207.164:7480/purOrder/list";
+            Map<String, String> paramMap = new HashMap<String, String>();
+            paramMap.put("userName", "123456");
+            paramMap.put("verifyInfo", "cabb9e436314f2a67951626785835a86");
             Map<String, String> headMap = new HashMap<String, String>();
-//            headMap.put("Authorization", "Basic WE9OSlpFbkVpT3E3bUJVT3EyR2VoY1pKT3A3T2Q4SlA6QndNZUYyd3Y5MnhqN1Niek1OR1A3Sm5uYVEwclRlWVQ=");
-            headMap.put(null, null);
-//            HttpResponseInfo info = HttpDoPost("https://api.glodon.com/account/mobile/reset_password",paramMap,headMap);
-//            HttpResponseInfo info = HttpDoPost("http://172.16.231.51:9090/postTest",paramMap,headMap);
-            HttpResponseInfo info = HttpDoPost("http://172.16.231.51:9090/postTestFile",paramMap,headMap);
-            
+            headMap.put("content-type","application/json");
+            HttpResponseInfo info = HttpDoPost("http://172.16.231.51:9090/postTestFile", paramMap, headMap);
             System.out.println(info.getContent());
             System.out.println(info.getStatusCode());
             System.out.println(info.getReasonPhrase());
