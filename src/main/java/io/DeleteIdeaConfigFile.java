@@ -17,10 +17,10 @@ import java.io.InputStream;
 public class DeleteIdeaConfigFile {
 
     public static void main(String[] args) throws IOException {
-        //String ideaProjectPath = "D:\\develop\\IdeaProjects\\jeecg-boot\\jeecg-boot\\";
-        String ideaProjectPath = "E:\\东港股份";
+        String ideaProjectPath = "D:\\develop\\IdeaProjects\\sai";
         File file = new File(ideaProjectPath);
         deleteByDir(file, ".iml");
+        deleteByDir(file, ".flattened-pom.xml");
         //deleteByDir(file, "target");
         //deleteByDir(file, ".idea");
     }
