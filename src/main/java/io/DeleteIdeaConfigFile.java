@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class DeleteIdeaConfigFile {
 
     public static void main(String[] args) throws IOException {
-        String ideaProjectPath = "D:\\develop\\IdeaProjects\\sai";
+        String ideaProjectPath = "D:\\develop\\IdeaProjects\\iep-platform-basic";
         File file = new File(ideaProjectPath);
         deleteByDir(file, ".iml");
         deleteByDir(file, ".flattened-pom.xml");

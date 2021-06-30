@@ -67,7 +67,7 @@ public class Java8Tester {
         mergedString = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.joining(", "));
         System.out.println("合并字符串: " + mergedString);
 
-        squaresList = numbers.stream().map(i -> i * i).distinct().collect(Collectors.toList());
+        squaresList = numbers.stream().map(i -> i * i).distinct().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
         System.out.println("Squares List: " + squaresList);
         System.out.println("列表: " + integers);
 
