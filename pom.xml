@@ -259,6 +259,15 @@
             <version>2.2.10</version>
         </dependency>
 
+        <!-- 自定义计算公式 JEP -->
+        <dependency>
+            <groupId>com.singularsys</groupId>
+            <artifactId>jep</artifactId>
+            <version>4.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/jep-java-4.0-trial.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>
