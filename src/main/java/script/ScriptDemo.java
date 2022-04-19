@@ -6,12 +6,47 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.io.FileReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author: wangzz
  * @date: 2021年11月08日 16:47
  */
 public class ScriptDemo {
+
+    Pattern pattern = Pattern.compile("function\\s+(\\w*)\\((.*)\\)");
+    //Pattern pattern = Pattern.compile("(function\\s+main\\()(.*)(\\))");
+    //Pattern pattern = Pattern.compile("(function\\s+main\\()(.*)(\\))");
+
+    @Test
+    public void test() {
+        String js = "function main(var1) {\n" +
+                "    var sum = (var1 + var2) / (score1 + score2);\n" +
+                "    return sum;\n" +
+                "}" +
+                "function main(var11, var22, score11, score22) {\n" +
+                "    var sum = (var1 + var2) / (score1 + score2);\n" +
+                "    return sum;\n" +
+                "}";
+
+
+        Matcher matcher = pattern.matcher(js);
+        //StringBuffer buffer = new StringBuffer();
+        while (matcher.find()) {
+            //System.out.println(matcher.group(1));
+            String group = matcher.group(1);
+            System.out.println(group);
+            String group1 = matcher.group(2);
+            System.out.println(group1);
+            break;
+            //System.out.println(matcher.group(3));
+            //buffer.append(matcher.group());
+            //buffer.append("\r\n");
+        }
+        //System.out.println(buffer);
+
+    }
 
     @Test
     public void test1() {

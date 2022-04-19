@@ -18,10 +18,10 @@ public class SupplierDemo {
 
     public static void main(String[] args) {
 
-        //Supplier<String> supplier = String::new;
-        //System.out.println(supplier.get());//""
-        //Supplier<Car> supplierEmp = Car::new;
-        //Car emp = supplierEmp.get();
+        Supplier<String> supplier = String::new;
+        System.out.println(supplier.get());//""
+        Supplier<Car> supplierEmp = Car::new;
+        Car emp = supplierEmp.get();
 
         List<Person> lisiList = new ArrayList<>();
         Consumer<Person> consumer  = x -> {
