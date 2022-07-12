@@ -74,6 +74,7 @@ public class StreamDemo2 {
 
         // Collections.sort
         Collections.sort(ids, Comparator.reverseOrder());
+        Collections.sort(ids, Collections.reverseOrder());
 
         // Arrays.sort
         long[] idArr = ids.stream().mapToLong(Long::new).toArray();
