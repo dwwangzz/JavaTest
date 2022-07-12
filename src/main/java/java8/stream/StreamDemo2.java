@@ -73,7 +73,7 @@ public class StreamDemo2 {
         System.out.println(ids);
 
         // Collections.sort
-        Collections.sort(ids, Comparator.reverseOrder());
+        Collections.sort(ids, Comparator.reverseOrder()); // 推荐用这个
         Collections.sort(ids, Collections.reverseOrder());
 
         // Arrays.sort
