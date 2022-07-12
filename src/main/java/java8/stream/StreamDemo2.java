@@ -2,7 +2,6 @@ package java8.stream;
 
 import com.google.common.collect.Lists;
 import java8.stream.domain.Person;
-import kryo.User;
 import org.junit.Test;
 
 import java.util.*;
@@ -86,6 +85,15 @@ public class StreamDemo2 {
 
         List<Person> peoples = personList.stream().sorted(Comparator.comparing(Person::getId)).collect(Collectors.toList());
         System.out.println(peoples);
+
+        // 排序中出现null值，程序会报错，可以使用此处理方式
+        List<Person> peoples2 = personList.stream().sorted(Comparator.comparing(Person::getId, Comparator.nullsFirst(Long::compareTo))).collect(Collectors.toList());
+        List<Person> peoples3 = personList.stream().sorted(Comparator.comparing(Person::getId, Comparator.nullsFirst((o1, o2) -> {
+            System.out.println(String.format("%s-%s", o1, o2));
+            return 1;
+        }))).collect(Collectors.toList());
+        personList.stream().sorted(Comparator.comparing(Person::getId, Comparator.nullsLast(Long::compareTo)).reversed()).collect(Collectors.toList()).forEach(System.out::println);
+
 
     }
 
