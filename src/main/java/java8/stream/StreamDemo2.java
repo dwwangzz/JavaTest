@@ -98,6 +98,53 @@ public class StreamDemo2 {
 
     }
 
+    /**
+     * 断言分组
+     */
+    @Test
+    public void partitioningBy() {
+        List<Person> personList = init();
+
+        // 场景一：为某个字段设置断言，分为两个组合
+        Map<Boolean, List<Person>> map1 = personList.stream().collect(Collectors.partitioningBy(person -> person.getId() > 5));
+        System.out.println(map1);
+
+        // 场景二：为某个字段设置断言，分为两个组合，然后统计两个组合的元素个数
+        Map<Boolean, Long> map2 = personList.stream().collect(Collectors.partitioningBy(person -> person.getId() > 5, Collectors.counting()));
+        System.out.println(map2);
+
+    }
+
+    /**
+     * 分组
+     */
+    @Test
+    public void groupBy() {
+        List<Person> personList = init();
+
+        // 场景一：只对一个字段进行分组
+        Map<Long, List<Person>> map1 = personList.stream().collect(Collectors.groupingBy(Person::getId));
+        System.out.println(map1);
+
+        // 场景二：两个字段结合起来，作为分组条件
+        Map<String, List<Person>> map2 = personList.stream().collect(Collectors.groupingBy(StreamDemo2::groupString));
+        System.out.println(map2);
+
+        Map<String, List<Person>> map3_2 = personList.stream().collect(Collectors.groupingBy(person -> person.getId() + person.getName()));
+
+        Function<Person, String> fun = person -> person.getId() + person.getName();
+        Map<String, List<Person>> map3_1 = personList.stream().collect(Collectors.groupingBy(fun));
+        System.out.println(map3_1.toString() + map3_2.toString());
+
+        // 场景三：先对某一个字段分组，然后再将各组内的元素按照另一个字段分组
+        Map<Integer, Map<String, List<Person>>> map4 = personList.stream().collect(Collectors.groupingBy(Person::getAge, Collectors.groupingBy(Person::getName)));
+        System.out.println(map4);
+
+    }
+
+    private static String groupString(Person person) {
+        return person.getId() + person.getAge() + "";
+    }
 
     /**
      * 构造人的集合

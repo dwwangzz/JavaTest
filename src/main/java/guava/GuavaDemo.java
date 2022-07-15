@@ -56,8 +56,11 @@ public class GuavaDemo {
         multiKey.put("a", "b", 1);
         multiKey.put("a", "b", 2);
         multiKey.put("a", "c", 3);
+        multiKey.put("a", null, 4);
+        multiKey.put("a", null, 5);
         System.out.println(multiKey);
         System.out.println(multiKey.get("a", "b"));
+        System.out.println(multiKey.get("a","c"));
 
         Table<String, String, String> table = HashBasedTable.create();
         table.put("key1", "key2", "value");
