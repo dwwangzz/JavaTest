@@ -18,19 +18,15 @@ public class StreamDemo2 {
     @Test
     public void test() {
         List<Person> personList = init();
-        List<String> collect = personList.stream().filter(e -> e.getAge() > 80).map(Person::getName).collect(Collectors.toList());
-        System.out.println(collect);
-
-        List<Long> ids = personList.stream().map(Person::getId).collect(Collectors.toList());
-        System.out.println(ids);
-
-        ids = ids.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-        System.out.println(ids);
-
-        List<Person> peoples = personList.stream().sorted(Comparator.comparing(Person::getId)).collect(Collectors.toList());
-        System.out.println(peoples);
-
-
+        List<Long> ids = new ArrayList<>();
+        List<Person> list = personList.stream().filter(e -> {
+            if (ids.contains(e.getId())) {
+                return false;
+            }
+            ids.add(e.getId());
+            return true;
+        }).collect(Collectors.toList());
+        list.forEach(System.out::println);
     }
 
     @Test
@@ -140,6 +136,16 @@ public class StreamDemo2 {
         Map<Integer, Map<String, List<Person>>> map4 = personList.stream().collect(Collectors.groupingBy(Person::getAge, Collectors.groupingBy(Person::getName)));
         System.out.println(map4);
 
+        // 分组求和
+        //Map<Long, DoubleSummaryStatistics> statisticsMap = personList.stream().collect(Collectors.groupingBy(Person::getId, Collectors.summarizingDouble(Person::getPrice)));
+        Map<Long, DoubleSummaryStatistics> statisticsMap = personList.stream().collect(Collectors.groupingBy(Person::getId, Collectors.summarizingDouble(e -> e.getPrice() == null ? 0 : e.getPrice())));
+        Map<Long, Double> doubleMap = personList.stream().collect(Collectors.groupingBy(Person::getId, Collectors.summingDouble(e -> e.getPrice() == null ? 0 : e.getPrice())));
+        DoubleSummaryStatistics statistics = statisticsMap.get(1L);
+        System.out.println("statistics.getSum() = " + statistics.getSum());
+        System.out.println("statistics.getAverage() = " + statistics.getAverage());
+        System.out.println("statistics.getCount() = " + statistics.getCount());
+
+
     }
 
     private static String groupString(Person person) {
@@ -152,17 +158,17 @@ public class StreamDemo2 {
      */
     public List<Person> init() {
         ArrayList<Person> list = Lists.newArrayList();
-        list.add(new Person(1L, "张1", 1, Lists.newArrayList(1, 2, 3, 4, 5)));
-        list.add(new Person(1L, "张11", 11, Lists.newArrayList(11, 22, 33, 44, 55)));
-        list.add(new Person(3L, "张3", 3, Lists.newArrayList(3, 2, 3, 4, 5)));
-        list.add(new Person(2L, "张2", 2, Lists.newArrayList(2, 2, 3, 4, 5)));
-        list.add(new Person(4L, "张4", 4, Lists.newArrayList(4, 2, 3, 4, 5)));
-        list.add(new Person(5L, "张5", 5, Lists.newArrayList(5, 2, 3, 4, 5)));
-        list.add(new Person(6L, "张6", 6, Lists.newArrayList(6, 2, 3, 4, 5)));
-        list.add(new Person(7L, "张7", 7, Lists.newArrayList(7, 2, 3, 4, 5)));
-        list.add(new Person(8L, "张8", 8, Lists.newArrayList(8, 2, 3, 4, 5)));
-        list.add(new Person(9L, "张9", 9, Lists.newArrayList(9, 2, 3, 4, 5)));
-        list.add(new Person(10L, "张10", 10, Lists.newArrayList(10, 2, 3, 4, 5)));
+        list.add(new Person(1L, "张1", 1, 1.5d, Lists.newArrayList(1, 2, 3, 4, 5)));
+        list.add(new Person(1L, "张11", 11, null, Lists.newArrayList(11, 22, 33, 44, 55)));
+        list.add(new Person(3L, "张3", 3, null, Lists.newArrayList(3, 2, 3, 4, 5)));
+        list.add(new Person(2L, "张2", 2, null, Lists.newArrayList(2, 2, 3, 4, 5)));
+        list.add(new Person(4L, "张4", 4, null, Lists.newArrayList(4, 2, 3, 4, 5)));
+        list.add(new Person(5L, "张5", 5, null, Lists.newArrayList(5, 2, 3, 4, 5)));
+        list.add(new Person(6L, "张6", 6, null, Lists.newArrayList(6, 2, 3, 4, 5)));
+        list.add(new Person(7L, "张7", 7, null, Lists.newArrayList(7, 2, 3, 4, 5)));
+        list.add(new Person(8L, "张8", 8, null, Lists.newArrayList(8, 2, 3, 4, 5)));
+        list.add(new Person(9L, "张9", 9, null, Lists.newArrayList(9, 2, 3, 4, 5)));
+        list.add(new Person(10L, "张10", 10, null, Lists.newArrayList(10, 2, 3, 4, 5)));
         return list;
     }
 

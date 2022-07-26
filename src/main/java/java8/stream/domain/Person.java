@@ -10,6 +10,8 @@ public class Person {
 
     private int age;
 
+    private Double price;
+
     private List list;
 
     public Person() {
@@ -25,6 +27,14 @@ public class Person {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.list = list;
+    }
+
+    public Person(Long id, String name, int age, Double price, List list) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.price = price;
         this.list = list;
     }
 
@@ -66,6 +76,14 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public List getList() {
