@@ -10,8 +10,16 @@ public interface C {
         System.out.println("C :: default :: method1");
     }
 
+    default void method11() {
+        System.out.println("C :: default :: method11");
+    }
+
     static void method2() {
         System.out.println("C :: static :: method2");
+    }
+
+    static void method22() {
+        System.out.println("C :: static :: method22");
     }
 
 }
