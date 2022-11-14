@@ -1,6 +1,7 @@
 package thread;
 
 public class TestThread extends Thread {
+    @Override
     public void run() {
         while(true){
             try {
@@ -10,7 +11,7 @@ public class TestThread extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-             
+
         }
     }
 }

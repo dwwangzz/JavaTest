@@ -268,6 +268,13 @@
             <systemPath>${project.basedir}/src/main/resources/lib/jep-java-4.0-trial.jar</systemPath>
         </dependency>
 
+        <!-- 数据库相关 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>
