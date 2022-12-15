@@ -3,10 +3,14 @@ package guava;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 import org.apache.commons.collections.map.MultiKeyMap;
+import org.apache.commons.collections.map.MultiValueMap;
+import org.eclipse.jetty.util.ajax.JSON;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created by wangzz on 2017/5/12.
@@ -58,12 +62,43 @@ public class GuavaDemo {
         multiKey.put("a", "c", 3);
         multiKey.put("a", null, 4);
         multiKey.put("a", null, 5);
-        System.out.println(multiKey);
+        String x = JSON.toString(multiKey); 
+        System.out.println(x);
         System.out.println(multiKey.get("a", "b"));
         System.out.println(multiKey.get("a","c"));
 
+        Set set = multiKey.keySet();
+        System.out.println(set);
+
+        Set set1 = multiKey.entrySet();
+        for (Object o : set1) {
+            System.out.println(o);
+        }
+
+        MultiKeyMap multiKey2 = new MultiKeyMap();
+        multiKey2.putAll(multiKey);
+        System.out.println(multiKey2);
+
+
         Table<String, String, String> table = HashBasedTable.create();
         table.put("key1", "key2", "value");
+        table.put("key1", "key3", "value2");
+        table.put("key2", "key4", "value23");
+        table.put("key3", "key5", "value24");
+        System.out.println(table);
+    }
+
+    @Test
+    public void test4() {
+        MultiValueMap multiValueMap = new MultiValueMap();
+        multiValueMap.put("1", 1);
+        multiValueMap.put("1", 2);
+        multiValueMap.put("1", 3);
+        multiValueMap.put("2", 3);
+        multiValueMap.put("2", 4);
+        multiValueMap.put("2", 5);
+        System.out.println(multiValueMap);
+
     }
 
 
