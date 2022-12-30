@@ -1,10 +1,13 @@
 package java8.stream;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import utils.EmptyUtil;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +39,30 @@ public class StreamDemo {
         System.out.println(strings);
         System.out.println(strings1);
     }
+
+
+    @Test
+    public void filter() {
+        Predicate<Map<String, Object>> dtlFilters = dtlMap -> {
+            if (null == dtlMap.get("userCode") || StringUtils.isEmpty((String) dtlMap.get("userCode"))) {
+                return false;
+            }
+            return true;
+        };
+
+        List<Map<String, Object>> dtlList = new ArrayList<>();
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("userCode", "SD12345");
+        HashMap<String, Object> map2 = new HashMap<>();
+        HashMap<String, Object> map3 = new HashMap<>();
+        map3.put("userCode", "SD123456");
+        dtlList.add(map1);
+        dtlList.add(map2);
+        dtlList.add(map3);
+        Map<String, Map<String, Object>> dtlMap = dtlList.stream().filter(dtlFilters).collect(Collectors.toMap(e -> (String) e.get("userCode"), Function.identity()));
+        System.out.println(dtlMap);
+    }
+
 
     @Test
     public void test2() {
