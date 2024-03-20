@@ -1,5 +1,6 @@
-package com.sai.util;
+package addressUtils;
 
+import ListUtils.EmptyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,7 +26,7 @@ import java.util.regex.Pattern;
  * @since (该版本支持的JDK版本) 1.7
  */
 @Slf4j
-public class IpUtil2 {
+public class IpUtil {
 
     private static final String ANYHOST_VALUE = "0.0.0.0";
     private static final String LOCALHOST_VALUE = "127.0.0.1";
@@ -39,7 +40,7 @@ public class IpUtil2 {
     private static final String LOCAL_HOST_IP_V4 = "127.0.0.1";
     private static final String LOCAL_HOST_IP_V6 = "[::1]";
     private static final Pattern ipv4Pattern = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
-    //private static final Pattern ipv4Pattern = Pattern.compile("^" + "(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)" + "(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}" + "$");
+    // private static final Pattern ipv4Pattern = Pattern.compile("^" + "(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)" + "(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}" + "$");
     private static final int IPV4_ADDRESS_LENGTH = 4;
     private static final int IPV6_ADDRESS_LENGTH = 16;
     private static final String CHECK_OK = "ok";
@@ -89,7 +90,7 @@ public class IpUtil2 {
             }
             return ip;
         } catch (Exception e) {
-            log.warn(Logz.log("IpUtil.getIpAddress", "获取ip错误"));
+            log.warn("IpUtil.getIpAddress 获取ip错误");
         }
         return null;
     }
@@ -129,7 +130,7 @@ public class IpUtil2 {
             }
             return ip;
         } catch (Exception e) {
-            log.warn(Logz.log("IpUtil.getLocalIp", "获取ip错误"));
+            log.warn("IpUtil.getLocalIp", "获取ip错误");
         }
         return null;
     }
@@ -147,7 +148,7 @@ public class IpUtil2 {
             }
             String ip = request.getHeader("X-Forwarded-For");
             if (EmptyUtil.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
-                //多次反向代理后会有多个ip值，第一个ip才是真实ip
+                // 多次反向代理后会有多个ip值，第一个ip才是真实ip
                 int index = ip.indexOf(",");
                 if (index != -1) {
                     return ip.substring(0, index);
@@ -163,7 +164,7 @@ public class IpUtil2 {
             ip = ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
             return ip;
         } catch (Exception e) {
-            log.warn(Logz.log("IpUtil.getIp", "获取ip错误"));
+            log.warn("IpUtil.getIp", "获取ip错误");
         }
         return null;
     }
@@ -199,7 +200,7 @@ public class IpUtil2 {
             }
             return ip;
         } catch (Exception e) {
-            log.warn(Logz.log("IpUtil.getIp2", "获取ip错误"));
+            log.warn("IpUtil.getIp2 获取ip错误");
         }
         return null;
     }

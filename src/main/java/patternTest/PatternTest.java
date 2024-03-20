@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class patternTest {
+public class PatternTest {
 
     public static void main(String[] args) {
             /*String str = "/sdf/sdf/sdfsdf_temp.jpg";
