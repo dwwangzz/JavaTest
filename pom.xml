@@ -21,7 +21,7 @@
         <log4j.version>1.2.17</log4j.version>
         <shiro.version>1.2.4</shiro.version>
         <apache.commons-logger.version>1.2</apache.commons-logger.version>
-        <commons-io.version>2.2</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <slf4j.version>1.7.21</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
     </properties>
